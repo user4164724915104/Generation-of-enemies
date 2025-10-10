@@ -1,25 +1,29 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private BasicEnemyCube _BasicEnemyPrefab;
-    [SerializeField] private List<SpawnPoint> _SpawnPoints;
+    [SerializeField] private BasicEnemyCube _basicEnemyPrefab;
+    [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] private float _delay = 0;
     [SerializeField] private float _repeatRate = 2.0f;
+    [SerializeField] private int _height = 2;
+    [SerializeField] private Vector3 _direction;
     private int _zero = 0;
     private int _quantityPoints;
 
     private void Start()
     {
-        _quantityPoints = _SpawnPoints.Count;
-        InvokeRepeating(nameof(RundomazePoint), _delay, _repeatRate);
+        _quantityPoints = _spawnPoints.Count;
+        InvokeRepeating(nameof(Spawn), _delay, _repeatRate);
     }
 
-    private void RundomazePoint()
+    private void Spawn()
     {
         int randomPoint = Random.Range(_zero, _quantityPoints);
-        _SpawnPoints[randomPoint].Spawn();
+        BasicEnemyCube EnemyPrefab = Instantiate(_basicEnemyPrefab, _spawnPoints[randomPoint].transform.position + new Vector3(0, _height, 0), gameObject.transform.rotation);
+        EnemyPrefab.Initialize(_direction);
     }
 }

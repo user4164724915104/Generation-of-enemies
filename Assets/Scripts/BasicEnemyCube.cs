@@ -16,7 +16,7 @@ public class BasicEnemyCube : MonoBehaviour
 
     public void Initialize(Vector3 direction)
     {
-        transform.Rotate(direction);
+        transform.LookAt(direction);
     }
 
     private void Update()
