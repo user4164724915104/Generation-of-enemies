@@ -1,15 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class BasicEnemyCube : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _gravity;
+    [SerializeField] private Renderer _body;
     private Rigidbody _rigidbody;
 
     private void Start()
     {
-        Transform body = transform.GetChild(0);
-        body.GetComponent<Renderer>().material.color = Color.red;
+        _body.GetComponent<Renderer>().material.color = Color.red;
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.freezeRotation = true;
     }

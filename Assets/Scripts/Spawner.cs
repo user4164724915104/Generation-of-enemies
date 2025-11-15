@@ -1,13 +1,11 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private BasicEnemyCube _basicEnemyPrefab;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
-    [SerializeField] private float _delay = 0;
     [SerializeField] private float _repeatRate = 2.0f;
     [SerializeField] private int _height = 2;
     [SerializeField] private Vector3 _direction;
@@ -17,7 +15,18 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         _quantityPoints = _spawnPoints.Count;
-        InvokeRepeating(nameof(Spawn), _delay, _repeatRate);
+        StartCoroutine(SpawnCoroutine());
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        var wait = new WaitForSeconds(_repeatRate);
+
+        while (true)
+        {
+            Spawn();
+            yield return wait;
+        }
     }
 
     private void Spawn()

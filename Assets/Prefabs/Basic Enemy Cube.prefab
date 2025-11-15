@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 1
   _gravity: 1
+  _body: {fileID: 429984254178118797}
 --- !u!1 &8823287305373744832
 GameObject:
   m_ObjectHideFlags: 0
